@@ -2,59 +2,55 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AR.js Video Example</title>
-  <!-- Import A-Frame and AR.js with image tracking / location-based features -->
-  <script
-    src="https://cdn.jsdelivr.net/gh/aframevr/aframe@1c2407b26c61958baa93967b5412487cd94b290b/dist/aframe-master.min.js"></script>
-  <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Include A-Frame and MindAR libraries -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
   <style>
-    .arjs-loader {
-      height: 100%;
-      width: 100%;
+    .instagram-link {
       position: absolute;
-      top: 0;
-      left: 0;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00A700;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 10px;
     }
 
-    .arjs-loader div {
-      text-align: center;
-      font-size: 1.25em;
-      color: white;
+    .instagram-link:hover {
+      background-color: #02e902;
     }
   </style>
+  <!-- Play animation with target found event -->
+  <script>
+    window.addEventListener('targetFound', function () {
+      var videoElement = document.getElementById("Bunny");
+      videoElement.play();
+    });
+  </script>
 </head>
 
-<body style="margin: 0px; overflow: hidden;">
-  <!-- Minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
-  <div class="arjs-loader">
-    <div>Unloading. . . .</div>
-  </div>
-
-  <!-- A-Frame scene -->
-  <a-scene vr-mode-ui="enabled: false;" renderer="logarithmicDepthBuffer: true;" embedded
-    arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
-    <!-- a-nft is the anchor that defines an Image Tracking entity -->
-    <!-- on 'url' use the path to the Image Descriptors created before. -->
-    <!-- The path should end with the name without the extension, e.g., if the file is 'pinball.fset' the path should end with 'pinball' -->
-    <a-nft type="nft" url="./Violence-Family" smooth="true" smoothCount="10" smoothTolerance=".01" smoothThreshold="5">
-      <!-- a-video element to display a video -->
-      <a-assets>
-        <video id="Violence-Family" autoplay loop="true" src="./Violence-Family-Animation-Rev1.mp4"></video>
-      </a-assets>
-    </a-nft>
-    <!-- Static camera that moves according to the device movements -->
-    <a-entity camera></a-entity>
+<body>
+  <a-scene mindar-image="imageTargetSrc: assets/sukeban.mind; filterMinCF: 0.1; filterBeta: 10;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+    <a-assets>
+      <!-- Add the GIF as an asset -->
+      <video id="Bunny" loop="loop" autoplay="autoplay" playsinline="playsinline" webkit_playsinline="true"
+        crossorigin="anonymous" muted="muted" src="assets/videos/sukeban.mp4"></video>
+    </a-assets>
+    <a-camera position="0 0 0" look-controls="ena bled: false"></a-camera>
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-video shader="chromakey" color="0.1 0.9 0.2" src="#Bunny" width="0.90" height="1.2" position="0 0 0"></a-video>
+    </a-entity>
   </a-scene>
+  <!-- Instagram Link -->
+  <a href="https://www.instagram.com/orygen.ai" class="instagram-link" target="_blank">Follow us on Instagram</a>
 </body>
-
-<script src="https://raw.githack.com/AR-js-org/AR.js/master/three.js/build/ar-nft.js"></script>
 
 </html>
