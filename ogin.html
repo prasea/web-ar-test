@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Include A-Frame and MindAR libraries -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.2/dist/mindar-image-aframe.prod.js"></script>
+  <script src="https://unpkg.com/aframe-chromakey-material/dist/aframe-chromakey-material.min.js"></script>
+  <style>
+    .instagram-link {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: #00A700;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 10px;
+    }
+
+    .instagram-link:hover {
+      background-color: #02e902;
+    }
+  </style>
+  <!-- Play animation with target found event -->
+  <script>
+    window.addEventListener('targetFound', function () {
+      var videoElement = document.getElementById("Bunny");
+      videoElement.play();
+    });
+  </script>
+</head>
+
+<body>
+  <a-scene mindar-image="imageTargetSrc: assets/sukeban.mind; filterMinCF: 0.1; filterBeta: 10;" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+    <a-assets>
+      <!-- Add the GIF as an asset -->
+      <video id="Bunny" loop="loop" autoplay="autoplay" playsinline="playsinline" webkit_playsinline="true"
+        crossorigin="anonymous" muted="muted" src="assets/videos/sukeban.mp4"></video>
+    </a-assets>
+    <a-camera position="0 0 0" look-controls="ena bled: false"></a-camera>
+    <a-entity mindar-image-target="targetIndex: 0">
+      <a-video shader="chromakey" color="0.1 0.9 0.2" src="#Bunny" width="0.90" height="1.2" position="0 0 0"></a-video>
+    </a-entity>
+  </a-scene>
+  <!-- Instagram Link -->
+  <a href="https://www.instagram.com/orygen.ai" class="instagram-link" target="_blank">Follow us on Instagram</a>
+</body>
+
+</html>
